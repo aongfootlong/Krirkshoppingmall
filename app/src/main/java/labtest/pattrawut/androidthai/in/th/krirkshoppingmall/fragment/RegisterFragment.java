@@ -11,9 +11,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 
 import labtest.pattrawut.androidthai.in.th.krirkshoppingmall.MainActivity;
 import labtest.pattrawut.androidthai.in.th.krirkshoppingmall.R;
+import labtest.pattrawut.androidthai.in.th.krirkshoppingmall.utility.MyAlert;
 
 /**
  * Created by Pattrawut on 3/6/2018.
@@ -23,6 +25,7 @@ public class RegisterFragment extends Fragment {
 
 //    Explier
     private String nameString, userString, passwordString, modeString;
+    private boolean aBoolean = true;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -31,7 +34,31 @@ public class RegisterFragment extends Fragment {
 //        Create toolbar
         createToolbar();
 
+//        Radio Controller
+        radioController();
+
+
     }   // Main Method
+
+    private void radioController() {
+        RadioGroup radioGroup = getView().findViewById(R.id.ragMode);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+
+                aBoolean = false;
+                switch (i) {
+                    case R.id.ragOwner:
+                        modeString = "OwnerShop";
+                        break;
+                    case R.id.ragCustomer:
+                        modeString = "Customer";
+                        break;
+                }
+
+            }
+        });
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -58,7 +85,17 @@ public class RegisterFragment extends Fragment {
 //        Check Space
         if (nameString.isEmpty() || userString.isEmpty() || passwordString.isEmpty()) {
 //            Have Space
+            MyAlert myAlert = new MyAlert(getActivity());
+            myAlert.myDialog(getString(R.string.title_have_space) ,
+                    getString(R.string.message_have_space));
 
+        } else if (aBoolean) {
+//            Non Choose Mode
+            MyAlert myAlert = new MyAlert(getActivity());
+            myAlert.myDialog("Non Choose Mode" , "Please Choose Mode");
+
+        } else {
+//            Choose Mode OK
 
         }
 
