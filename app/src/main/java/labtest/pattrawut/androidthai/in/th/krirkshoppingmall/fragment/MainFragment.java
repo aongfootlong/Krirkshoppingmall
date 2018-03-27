@@ -23,8 +23,6 @@ public class MainFragment extends Fragment {
 //        Register Controller
         registerController();
 
-
-
     }   // End Main Method
 
     private void registerController() {
@@ -37,7 +35,9 @@ public class MainFragment extends Fragment {
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.contentMainFragment, new RegisterFragment())
+                        .addToBackStack(null)
                         .commit();
+
             }
         });
 
